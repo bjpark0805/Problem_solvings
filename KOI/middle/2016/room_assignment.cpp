@@ -1,4 +1,4 @@
-# 2016 KOI middle #1
+// 2016 KOI middle #1
 
 #include <iostream>
 #include <vector>
