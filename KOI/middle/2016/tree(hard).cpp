@@ -1,82 +1,74 @@
 // KOI 2016 middle #3
-
 #include <iostream>
+#include <stack>
 #include <vector>
 using namespace std;
 vector<int> parent;
-vector<int> lifetime;
+vector<int> original_parent;
+vector<int> level;
 vector< pair<int, int> > query;
-vector<bool> edge_set;
-int N, Q;
 
 int find_root(int node){
-	while(1){
-		if(edge_set[node]) {
-			if(parent[node] == node) return node;
-			else{
-				node = parent[node];
-			}
-		}
-		else return node;
-	}
+	if(parent[node] == node) return node;
+	else return parent[node] = find_root(parent[node]);
 }
 
-void solve(int start, int end){
-	vector<int> index;
-	for(int i = 2; i <= N; ++i){
-		if(lifetime[i] >= end && !edge_set[i]) {
-			edge_set[i] = true;
-			index.push_back(i);
-		}
-	}
-	if(start == end) {
-		cout << "query : " << query[start].first << " " << query[start].second << endl;
-		cout << "edge_set ";
-		for(int i = 2; i <= N; ++i){
-			cout << edge_set[i] << " ";
-		}
-		cout << endl;
-		cout << "find_root : " << find_root(query[start].first) << " " << find_root(query[start].second) << endl;
-		if(find_root(query[start].first) == find_root(query[start].second)) cout << "YES" << endl;
-		else cout << "NO" << endl;
-		return;
-	}
-	int M = (start + end)/2;
-	solve(start, M);
-	solve(M + 1, end);
-	for(int i = 0; i < index.size(); ++i){
-		edge_set[index[i]] = false;
-	} 
+void merge(int a, int b){
+	a = find_root(a);
+	b = find_root(b);
+	if(a == b) return; 
+	if(level[a] < level[b]) swap(a, b);
+	parent[b] = a;
+	if(level[a] == level[b]) level[a]++;
 }
 
 int main(){
-	cin >> N >> Q;
+	int N, Q;
+	scanf("%d%d", &N, &Q);
 	parent.resize(N + 1);
-	lifetime.resize(N + 1);
-	query.resize(Q + 1);
-	edge_set.resize(N + 1, false);
+	original_parent.resize(N + 1);
+	query.resize(N + Q);
+	level.resize(N + 1, 1);
 
-	parent[1] = 1;
+	for(int i = 1; i <= N; ++i){
+		parent[i] = i;
+	} 	
+
+	original_parent[1] = 1;
 	for(int i = 2; i <= N; ++i){
-		cin >> parent[i];
+		scanf("%d", &original_parent[i]);
 	}
-	int query_num = 0;
 	for(int i = 1; i <= N - 1 + Q; ++i){
 		int x; 
-		cin >> x;
+		scanf("%d", &x);
 		if(x == 0){
 			int b;
-			cin >> b;
-			lifetime[b] = query_num;	// edge from b to parent[b] is valid until 1 to query_num
+			scanf("%d", &b);
+			query[i] = make_pair(b, 0);
 		}else{
-			query_num++;
 			int c, d;
-			cin >> c >> d;
-			query[query_num] = make_pair(c, d);
+			scanf("%d%d", &c, &d);
+			query[i] = make_pair(c, d);
 		}
 	}
-	
-	solve(1, Q);
+	stack<bool> answer;
+	for(int i = N + Q - 1; i >= 1; --i){
+		int f = query[i].first;
+		int s = query[i].second;
+
+		if(s){
+			if(find_root(f) == find_root(s)) answer.push(true);
+			else answer.push(false);
+		}else{
+			// if(find_root(f) == find_root(s)) continue;
+			merge(f, original_parent[f]);
+		}
+	}
+	for(int i = 1; i <= Q; ++i){
+		if(answer.top()) printf("YES\n");
+		else printf("NO\n");
+		answer.pop();
+	}
 
 	return 0;
 }

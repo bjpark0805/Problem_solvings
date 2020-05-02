@@ -43,7 +43,7 @@ long long calculate_price(int range){
 }
 int main(){
 	int N;
-	cin >> N;
+	scanf("%d", &N);
 	long long partsum = 0;
 	for(int i = 0; i < N -1; ++i){
 		int temp;
@@ -66,7 +66,7 @@ int main(){
 	// for(int i = dist.size() - 1; i >= min_index; --i){
 	// 	temp_sum += dist.at(i);
 	// }
-	cout << calculate_price(N-1);
+	printf("%lld\n", calculate_price(N-1));
 
 	return 0;
 }
