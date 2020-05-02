@@ -1,4 +1,5 @@
 // KOI 2016 middle #3
+
 #include <iostream>
 #include <stack>
 #include <vector>

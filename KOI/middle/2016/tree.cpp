@@ -1,4 +1,6 @@
 // KOI 2016 middle #3
+// This version is easy, but caught in time limit
+
 #include <stdio.h>
 #include <iostream>
 #include <vector>
