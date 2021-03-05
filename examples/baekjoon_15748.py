@@ -3,10 +3,10 @@ def input(_type=str):
 	return _type(sys.stdin.readline().strip())
 
 def main():
-	L, N, rF, rB = list(map(int, input().split()))
+	L, N, rF, rB = map(int, input().split())
 	grass = []
 	for _ in range(N):
-		x, c = list(map(int, input().split()))
+		x, c = map(int, input().split())
 		t = x * (rF - rB)
 		grass.append((c, t))
 	grass.sort(reverse = True)
