@@ -5,8 +5,7 @@ def input(_type=str):
 def main():
 	K, N = map(int, input().split())
 	LAN = [input(int) for _ in range(K)]
-	m = min(LAN)
-	minv, maxv = m//(N//K + 1), max(m, max(LAN)//N)
+	minv, maxv = min(LAN)//(N//K + 1), max(LAN)//(N//K)
 	while minv + 1 < maxv:
 		midv = (minv + maxv)//2
 		cnt = 0
