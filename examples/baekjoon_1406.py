@@ -9,7 +9,7 @@ class Node():
 		self.prev = p
 
 
-def main():
+def using_doublelinkedlist():
 	string, M = input(), input(int)
 	head = Node()
 	cursor = head
@@ -50,4 +50,21 @@ def main():
 		print(cursor.val, end="")
 		cursor = cursor.nxt
 
-main()
+def two_stack():
+	l_list, r_list, M = list(input()), [], input(int)
+	for _ in range(M):
+		s = input()
+		if s[0] == 'L':
+			if l_list:
+				r_list.append(l_list.pop())
+		elif s[0] == 'D':
+			if r_list:
+				l_list.append(r_list.pop())
+		elif s[0] == 'B':
+			if l_list:
+				l_list.pop()
+		else:
+			l_list.append(s[2])
+	print(''.join(l_list + list(reversed(r_list))))
+	
+two_stack()
