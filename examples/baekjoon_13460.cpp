@@ -9,9 +9,7 @@ int N, M, mn = 11;
 int max_h(int a, int b){
 	return a >= b ? a : b;
 }
-int min_h(int a, int b){
-	return a < b ? a : b;
-}
+
 int recEscape(vector<string> board, int row, int col, int b_row, int b_col, int prev_d, int cnt){
 	if (cnt >= 11)
 		return 11;
