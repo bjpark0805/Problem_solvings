@@ -4,6 +4,13 @@
 #include <sstream>
 using namespace std;
 
+/*
+Key point: Parsing
+
+When parsing in c++, think about just printing and use for loop 
+instead of parsing it with STL like Python. 
+*/
+
 int main(){
 	ios::sync_with_stdio(false);
 	cin.tie(NULL);
@@ -15,7 +22,7 @@ int main(){
 		cin >> p;
 		cin >> N;
 		bool front = true, error = false; 
-		deque<string> deq(N);
+		deque<string> deq;
 		string s, stringBuffer;
 		cin >> s;
 		s = s.substr(1, s.size() - 1);
@@ -39,22 +46,22 @@ int main(){
 			cout << "error" << "\n";
 			continue;
 		}
-		string ans = "[";
+		cout << "[";
 		if(front){
-			for(int i = 0; i < deq.size(); ++i){
-				ans = ans + deq[i] + ',';
+			while(!deq.empty()){
+				cout << deq.front();
+				deq.pop_front();
+				if(!deq.empty()) cout << ',';
 			}
 		} 
 		else{
-			for(int i = deq.size() - 1; i >= 0; --i){
-				ans = ans + deq[i] + ',';
+			while(!deq.empty()){
+				cout << deq.back();
+				deq.pop_back();
+				if(!deq.empty()) cout << ',';
 			}
 		}
-		if(ans.size() != 1){
-			ans = ans.substr(0, ans.size() - 1);
-		}
-		ans = ans + ']';
-		cout << ans << "\n";
+		cout << "]\n";
 	}
 	return 0;
 }
