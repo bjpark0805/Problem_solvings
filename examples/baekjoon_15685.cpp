@@ -2,6 +2,7 @@
 #include <vector>
 
 using namespace std;
+// 39분
 vector<vector<bool> > points(101, vector<bool>(101, false));
 int dr[4] = {0, -1, 0, 1};
 int dc[4] = {1, 0, -1, 0};
