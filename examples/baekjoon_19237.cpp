@@ -119,7 +119,7 @@ void grown_up_shark(){
 		}
 		// Print();
 		// Print_scent();
-		// if(time >= 4) break;
+
 		// if only shark 1 left, break
 		if(shark_left == 1){
 			cout << time << "\n";
