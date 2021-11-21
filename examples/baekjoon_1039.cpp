@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <queue>
-#include <map>
+#include <vector>
 #include <algorithm>
 
 int N, K, l;
@@ -13,7 +13,7 @@ int bfs(){
 	while(!q.empty()){
 		int qsize = q.size();
 		int ans = -1;
-		std::map<int, int> visited;
+		std::vector<bool> visited(1000001, false);
 		for(int d = 0; d < qsize; ++d){
 			int f = q.front();
 			q.pop();
@@ -23,8 +23,8 @@ int bfs(){
 					char tmp = s[i];
 					s[i] = s[j];
 					s[j] = tmp;
-					if(s[0] == '0' or visited.find(std::stoi(s)) != visited.end()) continue;
-					visited[std::stoi(s)] = 1;
+					if(s[0] == '0' or visited[std::stoi(s)]) continue;
+					visited[std::stoi(s)] = true;
 					q.push(stoi(s));
 					ans = std::max(ans, stoi(s));
 				}
